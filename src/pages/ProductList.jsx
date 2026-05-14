@@ -35,12 +35,7 @@ export default function ProductList() {
         const { name, value } = e.target;
         let safeValue = value;
 
-        // Convert price to a standard number
-        if (name === 'price') {
-            safeValue = Number(value);
-        }
-        // Convert stock to a number, and force it to be AT LEAST 0
-        else if (name === 'stock') {
+        if (name === 'price' || name === 'stock') {
             safeValue = Math.max(0, Number(value));
         }
 
@@ -197,7 +192,7 @@ export default function ProductList() {
                                             <div className="row">
                                                 <div className="col-md-6 mb-3">
                                                     <label className="form-label">Price ($)</label>
-                                                    <input type="number" className="form-control" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" />
+                                                    <input type="number" className="form-control" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" min="0" />
                                                 </div>
                                                 <div className="col-md-6 mb-3">
                                                     <label className="form-label">Stock</label>

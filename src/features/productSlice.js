@@ -13,12 +13,17 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async (_
 
 // 2. DELETE: Remove a product
 export const deleteProduct = createAsyncThunk('products/deleteProduct', async (id, { rejectWithValue }) => {
-    try {
-        await axios.delete(`https://dummyjson.com/products/${id}`);
-        return id; // Return the ID so we can filter it out of our local state
-    } catch (error) {
-        return rejectWithValue(error.response?.data?.message || 'Failed to delete product');
+  try {
+    await axios.delete(`https://dummyjson.com/products/${id}`);
+    return id; 
+  } catch (error) {
+    // THE FIX: If the API throws a 404, it means we are deleting a fake product 
+    // that we just added locally. We should still return the ID to remove it from the UI!
+    if (error.response?.status === 404) {
+      return id; 
     }
+    return rejectWithValue(error.response?.data?.message || 'Failed to delete product');
+  }
 });
 
 // 3. CREATE: Add a new product
