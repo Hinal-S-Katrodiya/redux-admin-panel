@@ -88,34 +88,6 @@ export default function ProductList() {
                                 <th className="text-center">Actions</th>
                             </tr>
                         </thead>
-                        {/* <tbody>
-                            {items.map((product) => (
-                                <tr key={product.id}>
-                                    <td>{product.id}</td>
-                                    <td className="fw-bold">{product.title}</td>
-                                    <td><span className="badge bg-secondary">{product.category}</span></td>
-                                    <td>${Number(product.price).toFixed(2)}</td>
-                                    <td>
-                                        <span className={`fw-bold text-${product.stock > 10 ? 'success' : 'danger'}`}>
-                                            {product.stock}
-                                        </span>
-                                    </td>
-                                    <td className="text-center">
-                                        <button onClick={() => openModal(product)} className="btn btn-sm btn-primary me-2">
-                                            Edit
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                if (window.confirm('Are you sure you want to delete this?')) dispatch(deleteProduct(product.id))
-                                            }}
-                                            className="btn btn-sm btn-danger"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody> */}
                         <tbody>
                             {items.map((product) => (
 
@@ -168,7 +140,6 @@ export default function ProductList() {
             )
             }
 
-            {/* Custom Bootstrap Modal */}
             {
                 showModal && (
                     <>
@@ -208,7 +179,6 @@ export default function ProductList() {
                                 </div>
                             </div>
                         </div>
-                        {/* Modal Backdrop */}
                         <div className="modal-backdrop show" style={{ opacity: 0.5 }}></div>
                     </>
                 )

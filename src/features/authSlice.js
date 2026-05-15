@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// The Login Thunk
 export const loginUser = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
   try {
     const response = await axios.post('https://dummyjson.com/auth/login', credentials);
@@ -12,11 +11,10 @@ export const loginUser = createAsyncThunk('auth/login', async (credentials, { re
   }
 });
 
-// NEW: The Register Thunk
 export const registerUser = createAsyncThunk('auth/register', async (userData, { rejectWithValue }) => {
   try {
     const response = await axios.post('https://dummyjson.com/users/add', userData);
-    return response.data; // Returns the newly created fake user
+    return response.data; 
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || 'Registration failed');
   }
@@ -39,7 +37,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Login Cases
       .addCase(loginUser.pending, (state) => { state.isLoading = true; state.error = null; })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -48,7 +45,6 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       
-      // NEW: Register Cases
       .addCase(registerUser.pending, (state) => { state.isLoading = true; state.error = null; })
       .addCase(registerUser.fulfilled, (state) => { state.isLoading = false; })
       .addCase(registerUser.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; });

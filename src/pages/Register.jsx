@@ -16,11 +16,8 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Dispatch the register action and wait for it to finish
     const resultAction = await dispatch(registerUser(formData));
-    
-    // If successful, alert the user and send them to the login page
-    if (registerUser.fulfilled.match(resultAction)) {
+        if (registerUser.fulfilled.match(resultAction)) {
       alert('Registration successful! Please log in with your new credentials.');
       navigate('/login');
     }
